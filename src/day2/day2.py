@@ -35,31 +35,28 @@ desk. What is the bathroom code?
 """
 
 
-class numPad:
-
+class NumPad:
     def __init__(self, key):
         self.key = key
 
-
-    def getKeyAfterMove(self, move):
+    def get_key_after_move(self, move):
         if move == 'U' and self.key > 3:
-            self.key = self.key - 3
+            self.key -= 3
 
         elif move == 'D' and self.key < 7:
-            self.key = self.key + 3
+            self.key += 3
 
         elif move == 'L':
             if self.key != 1 and self.key != 4 and self.key != 7:
-                self.key = self.key - 1
+                self.key -= 1
 
         elif move == 'R':
             if self.key != 3 and self.key != 6 and self.key != 9:
-                self.key = self.key + 1
+                self.key += 1
 
         return self.key
 
-
-    def currentKey(self):
+    def current_key(self):
         return self.key
 
 
@@ -67,17 +64,17 @@ def get_number_sequence(filename):
     with open(filename) as f:
         lines = f.readlines()
 
-    n = numPad(5)
+    n = NumPad(5)
 
-    numSequence = []
+    num_sequence = []
 
     for line in lines:
-        numToAdd = 0
+        num_to_add = 0
         for char in line:
-            numToAdd = n.getKeyAfterMove(char)
-        numSequence.append(numToAdd)
+            num_to_add = n.get_key_after_move(char)
+        num_sequence.append(num_to_add)
 
-    return numSequence
+    return num_sequence
 
 
 if __name__ == '__main__':
