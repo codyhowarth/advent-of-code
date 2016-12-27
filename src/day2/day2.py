@@ -35,7 +35,7 @@ desk. What is the bathroom code?
 """
 
 
-class NumPad:
+class NumPadBasic:
     def __init__(self, key):
         self.key = key
 
@@ -60,11 +60,66 @@ class NumPad:
         return self.key
 
 
-def get_number_sequence(filename):
+class NumPadAdv:
+    def __init__(self, key):
+        self.key = key
+
+    def get_key_after_move(self, move):
+        if move == 'U':
+            if self.key == 3:
+                self.key = 1
+            elif self.key in [6, 7, 8]:
+                self.key -= 4
+            elif self.key == 'A':
+                self.key = 6
+            elif self.key == 'B':
+                self.key = 7
+            elif self.key == 'C':
+                self.key = 8
+            elif self.key == 'D':
+                self.key = 'B'
+
+        elif move == 'D':
+            if self.key == 1:
+                self.key = 3
+            elif self.key == 6:
+                self.key = 'A'
+            elif self.key == 7:
+                self.key = 'B'
+            elif self.key == 8:
+                self.key = 'C'
+            elif self.key in [2, 3, 4]:
+                self.key += 4
+            elif self.key == 'B':
+                self.key = 'D'
+
+        elif move == 'L':
+            if self.key in [3, 4, 6, 7, 8, 9]:
+                self.key -= 1
+            elif self.key == 'B':
+                self.key = 'A'
+            elif self.key == 'C':
+                self.key = 'B'
+
+        elif move == 'R':
+            if self.key in [2, 3, 5, 6, 7, 8]:
+                self.key += 1
+            elif self.key == 'A':
+                self.key = 'B'
+            elif self.key == 'B':
+                self.key = 'C'
+
+        return self.key
+
+    def current_key(self):
+        return self.key
+
+
+def get_number_sequence(filename, numpad):
     with open(filename) as f:
         lines = f.readlines()
 
-    n = NumPad(5)
+    n = numpad
 
     num_sequence = []
 
@@ -78,4 +133,6 @@ def get_number_sequence(filename):
 
 
 if __name__ == '__main__':
-    print get_number_sequence("probleminput.txt")
+    print get_number_sequence("probleminput.txt", NumPadBasic(5))
+
+    print get_number_sequence("probleminput.txt", NumPadAdv(5))
